@@ -1,0 +1,2 @@
+# ShinyHunt
+Pokedex tracker
