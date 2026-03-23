@@ -1,0 +1,43 @@
+/* styles.css */
+
+h1 {
+    color: rgb(7, 11, 10);
+    background-color: rgb(66, 111, 44);
+    text-align: center;
+    border: 20px;
+}
+
+h2 {
+    background: tan;
+    border: 4px saddlebrown;
+}
+
+div {
+    display: flex;
+}
+
+a {
+    border-width: 9px;
+    margin: 2px;
+    border-color: black;
+    background-color: rgb(177, 171, 171);
+    border-style: double;
+    padding: 0.5%;
+    text-align: center;
+}
+
+div a {
+    flex: 1;
+}
+
+.region{
+    background-color: tan;
+}
+
+.trackertitle{
+    background-color: rgb(138, 88, 138);
+}
+
+.gamestitle{
+    background-color: rgb(99, 99, 198);
+}
