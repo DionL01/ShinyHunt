@@ -28,7 +28,7 @@
 
         <div class="searchBtn">
             <form>
-                <input type="text" class="topOfBox">
+                <input type="text" class="topOfBox" id="username-input">
                 <button class="topOfBox">Search</button>
                 <ul></ul>
             </form>
@@ -39,109 +39,24 @@
         </div>
 
         <div class="dexEntry">
-            <div>Pokémon name:</div>
+            <div id="heading">Pokémon name:</div>
             <div>Type(s)</div>
             <div>#dexNumber</div>
             <div>Catch Status:</div>
             <div>Games Found:</div>
+            <div>Evolution Line:</div>
         </div>    
 
     </div>
 
-
     <div class="rightSide">
-        <div class="topOfBox"> <strong>001 - 030</strong></div>
-            <div class="box"> 
-                <div class="row">
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>5</div>
-                    <div>6</div>
-                </div>
-                <div class="row">
-                    <div>7</div>
-                    <div>8</div>
-                    <div>9</div>
-                    <div>10</div>
-                    <div>11</div>
-                    <div>12</div>
-                </div>
-                <div class="row">
-                    <div>13</div>
-                    <div>14</div>
-                    <div>15</div>
-                    <div>16</div>
-                    <div>17</div>
-                    <div>18</div>
-                </div> 
-                <div class="row">
-                    <div>19</div>
-                    <div>20</div>
-                    <div>21</div>
-                    <div>22</div>
-                    <div>23</div>
-                    <div>24</div>
-                </div>
-                <div class="row">
-                    <div>25</div>
-                    <div>26</div>
-                    <div>27</div>
-                    <div>28</div>
-                    <div>29</div>
-                    <div>30</div>
-                </div>
-            </div>
-        <div class="topOfBox"> <strong>031 - 060</strong></div>
-            <div class="box"> 
-                <div class="row">
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>5</div>
-                    <div>6</div>
-                </div>
-                <div class="row">
-                    <div>7</div>
-                    <div>8</div>
-                    <div>9</div>
-                    <div>10</div>
-                    <div>11</div>
-                    <div>12</div>
-                </div>
-                <div class="row">
-                    <div>13</div>
-                    <div>14</div>
-                    <div>15</div>
-                    <div>16</div>
-                    <div>17</div>
-                    <div>18</div>
-                </div> 
-                <div class="row">
-                    <div>19</div>
-                    <div>20</div>
-                    <div>21</div>
-                    <div>22</div>
-                    <div>23</div>
-                    <div>24</div>
-                </div>
-                <div class="row">
-                    <div>25</div>
-                    <div>26</div>
-                    <div>27</div>
-                    <div>28</div>
-                    <div>29</div>
-                    <div>30</div>
-                </div>
-            </div>
-        
+        <div id="dexContainer"></div>
     </div>     
 </div>
 
 
-    <script>
+<script>
+/* memory list creator */
 const list = document.querySelector("ul");
 const input = document.querySelector("input");
 const button = document.querySelector("button");
@@ -157,7 +72,7 @@ button.addEventListener("click", (event) => {
   const listBtn = document.createElement("button");
 
   listItem.appendChild(listText);
-  listText.textContent = myItem;
+  listText.textContent = myItem + ' ';
   listItem.appendChild(listBtn);
   listBtn.textContent = "Delete";
   list.appendChild(listItem);
@@ -167,6 +82,7 @@ button.addEventListener("click", (event) => {
   });
     input.focus();
 });
+
 
 
 /*
@@ -36248,6 +36164,40 @@ const natdex = [
     }
 }
 */
+
+/*Grid creation*/
+
+function gridCreation(natdex, containerId, n = 30) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  for (let start = 1; start < natdex.length; start += n) {
+    const end = Math.min(start + n - 1, natdex.length - 1);
+
+    const title = document.createElement("div");
+    title.classList.add("gridRange");
+    title.textContent = `${String(start).padStart(3, "0")} - ${String(end).padStart(3, "0")}`;
+
+    const grid = document.createElement("div");
+    grid.classList.add("dexGrid");
+
+    for (let dexId = start; dexId <= end; dexId++) {
+      const pokemon = natdex.find(p => p.dexid === dexId);
+
+      const box = document.createElement("div");
+      box.classList.add("pokemonBox");
+      box.textContent = pokemon ? pokemon.name.en : `#${dexId}`;
+
+      grid.appendChild(box);
+    }
+
+    container.appendChild(title);
+    container.appendChild(grid);
+  }
+}
+
+gridCreation(natdex, "dexContainer");
+
     </script>
 </body>
 </html>
